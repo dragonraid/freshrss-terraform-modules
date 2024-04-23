@@ -1,13 +1,6 @@
-# TODO: change this to variables
 locals {
-  container_name = "data"
-
-  # TODO: smaller subnets!!!
-  vnet_name = "fressrss-vnet"
-  vnet_cidr = ["10.0.0.0/16"]
-  subnet    = { name : "subnet1", address_prefixes : ["10.0.0.0/24"] }
-
-  aks_cluster_name = "freshrss-aks"
-  aks_dns_prefix   = "freshrss"
-  aks_sku_tier     = "Free"
+  aks_identity                         = "SystemAssigned"
+  aks_http_application_routing_enabled = true
+  federated_identity_audience          = ["api://AzureADTokenExchange"]
+  federated_identity_subject_prefix    = "system:serviceaccount"
 }

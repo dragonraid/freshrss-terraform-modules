@@ -1,11 +1,10 @@
-# Sweden Central seems to be the cheapest region
-variable "location" {
-  type = string
+variable "name" {
+  type    = string
+  default = "freshrss"
 }
 
-variable "resource_group_name" {
-  type    = string
-  default = "freshrss-rg"
+variable "location" {
+  type = string
 }
 
 variable "tags" {
@@ -15,16 +14,41 @@ variable "tags" {
   }
 }
 
+variable "vnet_cidr" {
+  type    = list(string)
+  default = ["10.0.0.0/24"]
+}
+
+variable "subnet_address_prefixes" {
+  type    = list(string)
+  default = ["10.0.0.0/24"]
+}
+
 variable "storage_account" {
   type = object({
-    name                             = optional(string, "freshrsssa")
     account_tier                     = optional(string, "Standard")
     account_replication_type         = optional(string, "LRS")
+    container_name                   = optional(string, "data")
     min_tls_version                  = optional(string, "TLS1_2")
     cross_tenant_replication_enabled = optional(bool, false)
     public_network_access_enabled    = optional(bool, false)
     allow_nested_items_to_be_public  = optional(bool, false)
   })
+}
+
+variable "aks_sku_tier" {
+  type    = string
+  default = "Free"
+}
+
+variable "workload_identity_enabled" {
+  type    = bool
+  default = true
+}
+
+variable "oidc_issuer_enabled" {
+  type    = bool
+  default = true
 }
 
 variable "aks_default_node_pool" {
