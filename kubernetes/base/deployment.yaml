@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freshrss
+spec:
+  replicas: 1
+  selector:
+  template:
+    metadata:
+    spec:
+      containers:
+      - name: fresshrss
+        image: freshrss/freshrss:1.23.0
+        ports:
+        - containerPort: 80

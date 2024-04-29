@@ -46,7 +46,6 @@ resource "azurerm_kubernetes_cluster" "freshrss" {
   sku_tier                         = var.aks_sku_tier
   workload_identity_enabled        = var.workload_identity_enabled
   oidc_issuer_enabled              = var.oidc_issuer_enabled
-  http_application_routing_enabled = local.aks_http_application_routing_enabled
   # TODO: Better handle tags
   tags = var.tags
 

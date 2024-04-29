@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: freshrss
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host: freshrss
+    http:
+      paths:
+      - backend:
+          service:
+            name: freshrss
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
