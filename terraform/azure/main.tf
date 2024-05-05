@@ -39,13 +39,13 @@ resource "azurerm_subnet" "freshrss" {
 }
 
 resource "azurerm_kubernetes_cluster" "freshrss" {
-  name                             = var.name
-  location                         = azurerm_resource_group.freshrss.location
-  resource_group_name              = azurerm_resource_group.freshrss.name
-  dns_prefix                       = var.name
-  sku_tier                         = var.aks_sku_tier
-  workload_identity_enabled        = var.workload_identity_enabled
-  oidc_issuer_enabled              = var.oidc_issuer_enabled
+  name                      = var.name
+  location                  = azurerm_resource_group.freshrss.location
+  resource_group_name       = azurerm_resource_group.freshrss.name
+  dns_prefix                = var.name
+  sku_tier                  = var.aks_sku_tier
+  workload_identity_enabled = var.workload_identity_enabled
+  oidc_issuer_enabled       = var.oidc_issuer_enabled
   # TODO: Better handle tags
   tags = var.tags
 
@@ -103,5 +103,5 @@ resource "azurerm_federated_identity_credential" "freshrss" {
   audience            = local.federated_identity_audience # TODO: find out what is this
   issuer              = azurerm_kubernetes_cluster.freshrss.oidc_issuer_url
   parent_id           = azurerm_user_assigned_identity.freshrss.id
-  subject             = "system:serviceaccount:default:freshrss"
+  subject             = "system:serviceaccount:default:freshrss" # TODO: make a variable
 }
