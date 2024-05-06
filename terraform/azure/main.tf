@@ -1,4 +1,4 @@
-data "azurerm_subscription" "current" {} # TODO: Rename to current
+data "azurerm_subscription" "current" {}
 
 resource "azurerm_resource_group" "freshrss" {
   name     = var.name
@@ -48,6 +48,11 @@ resource "azurerm_kubernetes_cluster" "freshrss" {
   oidc_issuer_enabled       = var.oidc_issuer_enabled
   # TODO: Better handle tags
   tags = var.tags
+
+  # TODO make optional maybe
+  web_app_routing {
+    dns_zone_id = ""
+  }
 
   network_profile {
     network_plugin = var.aks_network_profile.network_plugin
