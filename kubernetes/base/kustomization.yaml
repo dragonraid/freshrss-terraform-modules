@@ -12,5 +12,5 @@ commonLabels:
   app: freshrss
 
 images:
-  - name: freshrss
+  - name: freshrss/freshrss
     newTag: 1.23.1
