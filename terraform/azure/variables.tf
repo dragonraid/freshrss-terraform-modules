@@ -10,7 +10,7 @@ variable "location" {
 variable "tags" {
   type = map(string)
   default = {
-    service = "freshrss" # TODO: make local and merge with custom tags
+    service = "freshrss"
   }
 }
 
@@ -24,18 +24,6 @@ variable "subnet_address_prefixes" {
   default = ["10.0.0.0/24"]
 }
 
-variable "storage_account" {
-  type = object({
-    account_tier                     = optional(string, "Standard")
-    account_replication_type         = optional(string, "LRS")
-    container_name                   = optional(string, "data")
-    min_tls_version                  = optional(string, "TLS1_2")
-    cross_tenant_replication_enabled = optional(bool, false)
-    public_network_access_enabled    = optional(bool, false)
-    allow_nested_items_to_be_public  = optional(bool, false)
-  })
-}
-
 variable "aks_sku_tier" {
   type    = string
   default = "Free"
@@ -43,12 +31,12 @@ variable "aks_sku_tier" {
 
 variable "workload_identity_enabled" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "oidc_issuer_enabled" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "aks_default_node_pool" {
