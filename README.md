@@ -1,19 +1,19 @@
 # FreshRSS
 
-Terraform module for deploying a self-hosted instance of [FreshRSS](https://freshrss.github.io/FreshRSS/en/) to kubernetes in azure public cloud.
+Terraform module for deploying a self-hosted instance of [FreshRSS](https://freshrss.github.io/FreshRSS/en/) to Kubernetes in Azure public cloud.
 
 > [!IMPORTANT]
-> This module is meant to be simple and cheap not highly available and secure
+> This module is meant to be simple and cheap, not highly available and secure
 
 ## Quick start
 
-This guide presumes you have following basic understanding of the following:
+This guide presumes you have a basic understanding of the following:
 
 - AKS
-- terraform
-- azure CLI
-- kubectl
-- kustomize
+- Terraform
+- Azure CLI
+- Kubectl
+- Kustomize
 
 ### Prerequisites
 
@@ -24,7 +24,7 @@ This guide presumes you have following basic understanding of the following:
 
 ### Deploy
 
-Following part resembles the example values you can use to deploy the FreshRSS instance to Azure.
+The following part provides example values you can use to deploy the FreshRSS instance to Azure.
 
 ```bash
 cat << EOF > main.tf
@@ -53,19 +53,19 @@ provider "azurerm" {
 EOF
 ```
 
-Then run following commands to deploy the FreshRSS instance to Azure.
+Then run the following commands to deploy the FreshRSS instance to Azure.
 
 ```bash
 az login
 
 terraform init
 terraform apply
-terraform output -raw kube_config > /tmp/kubeconfig 
+terraform output -raw kube_config > /tmp/kubeconfig
 KUBECONFIG=/tmp/kubeconfig:~/.kube/config kubectl config view --flatten > ~/.kube/config
 kubectl apply -k modules/kubernetes/base
 ```
 
-Get the external IP of the FreshRSS instance by running following command.
+Get the external IP of the FreshRSS instance by running the following command.
 
 ```bash
 kubectl get ingress freshrss -n freshrss -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
@@ -82,7 +82,7 @@ Happy reading!
 | name                      | Name of the stack referenced in resource names.             | string   | `freshrss`    | no       |
 | location                  | The Azure region in which to deploy the FreshRSS resources. | `string` | n/a           | yes      |
 | vnet_cidr                 | Azure VNET address prefix.                                  | string   | `10.0.0.0/24` | no       |
-| subnet_address_prefixes   | Azure subent address prefix.                                | string   | `10.0.0.0/24` | no       |
+| subnet_address_prefixes   | Azure subnet address prefix.                                | string   | `10.0.0.0/24` | no       |
 | aks_sku_tier              | The SKU tier of the AKS cluster.                            | string   | `Free`        | no       |
 | workload_identity_enabled | Enable workload identity for the AKS cluster.               | bool     | `false`       | no       |
 | oidc_issuer_enabled       | Enable OIDC issuer for the AKS cluster.                     | bool     | `false`       | no       |
